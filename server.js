@@ -58,7 +58,7 @@ app.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     try {
         const user = await User.create({ username: newUsername, password: hashedPassword });
-        res.json({ success: true, redirectUrl: '/hello.html' });
+        res.json({ success: true, redirectUrl: 'http://localhost:3000/hello.html' });
     } catch (error) {
         console.error('Erreur lors de l\'inscription:', error);
         if (error.name === 'SequelizeUniqueConstraintError') {
@@ -76,7 +76,7 @@ app.post('/login', async (req, res) => {
         const user = await User.findOne({ where: { username } });
         if (user && await bcrypt.compare(password, user.password)) {
             req.session.user = user;
-            res.json({ success: true, redirectUrl: '/hello.html' });
+            res.json({ success: true, redirectUrl: 'http://localhost:3000/hello.html' });
         } else {
             res.status(401).json({ success: false, message: 'Nom d\'utilisateur ou mot de passe incorrect' });
         }
