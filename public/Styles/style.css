@@ -15,9 +15,9 @@ form .button-container {
     text-align: center; /* Centrer le bouton horizontalement */
 }
 
-    form .button-container button {
-        display: inline-block; /* Assurez-vous que le bouton est en ligne */
-    }
+form .button-container button {
+    display: inline-block; /* Assurez-vous que le bouton est en ligne */
+}
 
 body {
     font-family: Arial, sans-serif;
@@ -56,10 +56,10 @@ h1 {
     border-radius: 5px; /* Coins arrondis */
 }
 
-    .site-button-bright:hover {
-        background-color: #333; /* Couleur de fond au survol */
-        color: #fff; /* Couleur du texte au survol */
-    }
+.site-button-bright:hover {
+    background-color: #333; /* Couleur de fond au survol */
+    color: #fff; /* Couleur du texte au survol */
+}
 
 .site-button-dark {
     background-color: #333; /* Couleur de fond */
@@ -75,16 +75,81 @@ h1 {
     border-radius: 5px; /* Coins arrondis */
 }
 
-    .site-button-dark:hover {
-        background-color: #d3d3d3; /* Couleur de fond au survol */
-        color: #494747; /* Couleur du texte au survol */
-    }
+.site-button-dark:hover {
+    background-color: #d3d3d3; /* Couleur de fond au survol */
+    color: #494747; /* Couleur du texte au survol */
+}
 
 .header-right-button {
     position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.back-button {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Styles pour le bouton circulaire et le menu déroulant */
+.site-button-circle {
+    background-color: #fff; /* Couleur de fond */
+    color: #494747; /* Couleur du texte */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Bouton circulaire */
+    border: none; /* Suppression de la bordure */
+    cursor: pointer; /* Curseur de pointeur */
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 15px; /* Positionner le menu déroulant en dessous du bouton */
+    background-color: #5d5b5bcf;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #494747;
+    color: #d3d3d3;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.user-info {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+}
+
+.user-info #username {
+    color: #fff;
+    margin-right: 80px; /* Ajustez cette valeur pour déplacer le nom d'utilisateur */
+    white-space: nowrap; /* Empêcher le texte de se casser sur plusieurs lignes */
 }
 
 main {
@@ -124,6 +189,6 @@ button {
     cursor: pointer;
 }
 
-    button:hover {
-        background-color: #333;
-    }
+button:hover {
+    background-color: #333;
+}

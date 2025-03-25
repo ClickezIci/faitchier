@@ -9,8 +9,17 @@
 <body>
     <header>
         <h1>Hello World</h1>
-        <button id="logoutButton" class="site-button-bright header-right-button">Déconnexion</button>
-        <script src="JS/script.js"></script>
+        <div class="user-info">
+            <span id="username">Nom d'utilisateur</span>
+            <div class="dropdown">
+                <button id="menuButton" class="site-button-circle header-right-button"></button>
+                <div id="dropdownMenu" class="dropdown-content">
+                    <a href="#" id="mySpaceButton">Mon espace</a>
+                    <a href="#" id="logoutButton">Déconnexion</a>
+                </div>
+            </div>
+        </div>
     </header>
+    <script src="JS/script.js"></script>
 </body>
 </html>

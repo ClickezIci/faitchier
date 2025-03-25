@@ -1,8 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Récupération des éléments du DOM
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
     const logoutButton = document.getElementById('logoutButton');
+    const menuButton = document.getElementById('menuButton');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const usernameElement = document.getElementById('username');
+    const mySpaceButton = document.getElementById('mySpaceButton'); // Récupération du bouton "Mon espace"
 
+    // Fonction pour récupérer dynamiquement le nom d'utilisateur connecté
+    async function fetchUsername() {
+        try {
+            const response = await fetch('http://localhost:3000/user', { // Endpoint pour récupérer les informations de l'utilisateur
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                usernameElement.textContent = data.username; // Assurez-vous que le serveur renvoie un objet avec une propriété 'username'
+            } else {
+                console.error('Erreur lors de la récupération du nom d\'utilisateur');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+        }
+    }
+
+    // Appeler la fonction pour récupérer le nom d'utilisateur
+    fetchUsername();
+
+    // Gestion de la soumission du formulaire de connexion
     if (loginForm) {
         loginForm.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -16,16 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     body: JSON.stringify({ username, password })
                 });
-                const result = await response.text(); // Utiliser .text() pour voir la réponse brute
+                const result = await response.json();
                 console.log('Réponse du serveur:', result); // Ajouter un journal pour vérifier la réponse
-                const jsonResult = JSON.parse(result); // Convertir la réponse en JSON
                 if (!response.ok) {
-                    throw new Error(jsonResult.message);
+                    throw new Error(result.message);
                 }
-                if (jsonResult.success) {
-                    window.location.href = jsonResult.redirectUrl;
+                if (result.success) {
+                    window.location.href = result.redirectUrl;
                 } else {
-                    alert(jsonResult.message);
+                    alert(result.message);
                 }
             } catch (error) {
                 console.error('Erreur:', error);
@@ -34,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Gestion de la soumission du formulaire d'inscription
     if (signupForm) {
         signupForm.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -47,16 +76,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     body: JSON.stringify({ newUsername, newPassword })
                 });
-                const result = await response.text(); // Utiliser .text() pour voir la réponse brute
+                const result = await response.json();
                 console.log('Réponse du serveur:', result); // Ajouter un journal pour vérifier la réponse
-                const jsonResult = JSON.parse(result); // Convertir la réponse en JSON
                 if (!response.ok) {
-                    throw new Error(jsonResult.message);
+                    throw new Error(result.message);
                 }
-                if (jsonResult.success) {
-                    window.location.href = jsonResult.redirectUrl;
+                if (result.success) {
+                    window.location.href = result.redirectUrl;
                 } else {
-                    alert(jsonResult.message);
+                    alert(result.message);
                 }
             } catch (error) {
                 console.error('Erreur:', error);
@@ -65,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Gestion de la déconnexion
     if (logoutButton) {
         logoutButton.addEventListener('click', async () => {
             try {
@@ -83,6 +112,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Erreur:', error);
                 alert('Une erreur est survenue. Veuillez réessayer.');
             }
+        });
+    }
+
+    // Gestion de l'affichage du menu déroulant
+    if (menuButton) {
+        menuButton.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('show');
+        });
+    }
+
+    // Gestion de la fermeture du menu déroulant en cliquant en dehors
+    window.addEventListener('click', (event) => {
+        if (!event.target.matches('#menuButton')) {
+            const dropdowns = document.getElementsByClassName('dropdown-content');
+            for (let i = 0; i < dropdowns.length; i++) {
+                const openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    });
+
+    // Gestion de la redirection du bouton "Mon espace"
+    if (mySpaceButton) {
+        mySpaceButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Empêcher le comportement par défaut du lien
+            window.location.href = 'http://localhost:3000/espace.html'; // Rediriger vers la page espace.html
         });
     }
 });

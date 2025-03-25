@@ -4,7 +4,7 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const { Sequelize, DataTypes } = require('sequelize');
-const cors = require('cors'); // Importer le middleware CORS
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
@@ -13,7 +13,7 @@ const sequelize = new Sequelize('MaDB', 'clickezici', 'dB9_888_slip', {
     host: 'localhost',
     dialect: 'mysql',
     dialectOptions: {
-        charset: 'utf8mb4' // Assurez-vous que la base de données utilise l'encodage UTF-8
+        charset: 'utf8mb4'
     }
 });
 
@@ -35,7 +35,7 @@ sequelize.sync()
     .then(() => console.log('Base de données synchronisée'))
     .catch(err => console.error('Erreur de synchronisation de la base de données:', err));
 
-app.use(cors()); // Utiliser le middleware CORS
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -43,7 +43,7 @@ app.use(session({
     secret: 'votre_secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Utilisez true en production avec HTTPS
+    cookie: { secure: false }
 }));
 
 // Middleware pour définir l'encodage des réponses
@@ -98,6 +98,25 @@ app.post('/logout', (req, res) => {
         }
         res.json({ success: true });
     });
+});
+
+// Route pour récupérer les informations de l'utilisateur connecté
+app.get('/user', async (req, res) => {
+    if (req.session.user) {
+        try {
+            const user = await User.findOne({ where: { id: req.session.user.id } });
+            if (user) {
+                res.json({ username: user.username });
+            } else {
+                res.status(404).json({ message: 'Utilisateur non trouvé' });
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération de l\'utilisateur:', error);
+            res.status(500).json({ message: 'Erreur du serveur' });
+        }
+    } else {
+        res.status(401).json({ message: 'Utilisateur non connecté' });
+    }
 });
 
 // Route pour servir les fichiers HTML avec l'encodage correct
