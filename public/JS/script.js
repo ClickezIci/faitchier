@@ -16,18 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     body: JSON.stringify({ username, password })
                 });
-                const result = await response.json();
+                const result = await response.text(); // Utiliser .text() pour voir la réponse brute
+                console.log('Réponse du serveur:', result); // Ajouter un journal pour vérifier la réponse
+                const jsonResult = JSON.parse(result); // Convertir la réponse en JSON
                 if (!response.ok) {
-                    throw new Error(result.message);
+                    throw new Error(jsonResult.message);
                 }
-                if (result.success) {
-                    window.location.href = result.redirectUrl;
+                if (jsonResult.success) {
+                    window.location.href = jsonResult.redirectUrl;
                 } else {
-                    alert(result.message);
+                    alert(jsonResult.message);
                 }
             } catch (error) {
                 console.error('Erreur:', error);
-                alert(error.message); // Afficher le message d'erreur sp�cifique
+                alert(error.message); // Afficher le message d'erreur spécifique
             }
         });
     }
@@ -45,18 +47,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     body: JSON.stringify({ newUsername, newPassword })
                 });
-                const result = await response.json();
+                const result = await response.text(); // Utiliser .text() pour voir la réponse brute
+                console.log('Réponse du serveur:', result); // Ajouter un journal pour vérifier la réponse
+                const jsonResult = JSON.parse(result); // Convertir la réponse en JSON
                 if (!response.ok) {
-                    throw new Error(result.message);
+                    throw new Error(jsonResult.message);
                 }
-                if (result.success) {
-                    window.location.href = result.redirectUrl;
+                if (jsonResult.success) {
+                    window.location.href = jsonResult.redirectUrl;
                 } else {
-                    alert(result.message);
+                    alert(jsonResult.message);
                 }
             } catch (error) {
                 console.error('Erreur:', error);
-                alert(error.message); // Afficher le message d'erreur sp�cifique
+                alert(error.message); // Afficher le message d'erreur spécifique
             }
         });
     }
@@ -73,11 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     window.location.href = 'http://localhost:3000/index.html'; // Rediriger vers la page d'accueil
                 } else {
-                    alert('Erreur lors de la d�connexion. Veuillez r�essayer.');
+                    alert('Erreur lors de la déconnexion. Veuillez réessayer.');
                 }
             } catch (error) {
                 console.error('Erreur:', error);
-                alert('Une erreur est survenue. Veuillez r�essayer.');
+                alert('Une erreur est survenue. Veuillez réessayer.');
             }
         });
     }

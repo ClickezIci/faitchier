@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription</title>
     <link rel="stylesheet" href="Styles/style.css">
@@ -9,7 +9,7 @@
 <body>
     <header>
         <h1>Inscription</h1>
-        <a href="index.html" class="site-button-bright back-button">Retour</a>
+        <a href="index.html" class="site-button-bright header-right-button">Retour</a>
     </header>
     <main>
         <form id="signupForm">
@@ -18,7 +18,9 @@
             <input type="text" id="newUsername" name="newUsername" required>
             <label for="newPassword">Mot de passe:</label>
             <input type="password" id="newPassword" name="newPassword" required>
-            <button type="submit" class="site-button-dark">S'inscrire</button>
+            <div class="button-container">
+                <button type="submit" class="site-button-dark">S'inscrire</button>
+            </div>
         </form>
     </main>
     <script src="JS/script.js"></script>

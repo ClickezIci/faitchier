@@ -1,3 +1,24 @@
+input[type="text"],
+input[type="password"] {
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px; /* Ajoutez cette ligne pour égaliser la marge droite */
+    width: 100%; /* Assurez-vous que les champs de saisie prennent toute la largeur disponible */
+}
+
+/* Styles pour centrer le titre et le bouton dans les formulaires */
+form h2 {
+    text-align: center;
+}
+
+form .button-container {
+    text-align: center; /* Centrer le bouton horizontalement */
+}
+
+    form .button-container button {
+        display: inline-block; /* Assurez-vous que le bouton est en ligne */
+    }
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,7 +29,12 @@ header {
     background-color: #494747; /* Gris 10 fois plus foncé */
     padding: 20px;
     text-align: center;
-    position: relative;
+    position: fixed; /* Ancrer le bandeau en haut de la page */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Assurez-vous que le bandeau reste au-dessus du contenu */
+    box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur totale */
 }
 
 h1 {
@@ -54,21 +80,7 @@ h1 {
         color: #494747; /* Couleur du texte au survol */
     }
 
-.back-button {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.signup-button {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.logout-button {
+.header-right-button {
     position: absolute;
     right: 20px;
     top: 50%;
@@ -81,6 +93,7 @@ main {
     align-items: center;
     height: calc(100vh - 80px); /* Ajuster la hauteur pour exclure le header */
     padding: 20px;
+    padding-top: 100px; /* Ajouter un padding-top pour éviter que le contenu soit caché derrière le header */
 }
 
 form {

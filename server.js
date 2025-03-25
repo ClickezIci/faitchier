@@ -11,7 +11,10 @@ const port = 3000;
 // Connexion à MySQL avec Sequelize
 const sequelize = new Sequelize('MaDB', 'clickezici', 'dB9_888_slip', {
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    dialectOptions: {
+        charset: 'utf8mb4' // Assurez-vous que la base de données utilise l'encodage UTF-8
+    }
 });
 
 // Définition du modèle utilisateur
@@ -45,7 +48,7 @@ app.use(session({
 
 // Middleware pour définir l'encodage des réponses
 app.use((req, res, next) => {
-    res.setHeader('Content-Type', 'text/html; charset=ISO-8859-1');
+    res.setHeader('Content-Type', 'application/json; charset=UTF-8');
     next();
 });
 
@@ -99,7 +102,7 @@ app.post('/logout', (req, res) => {
 
 // Route pour servir les fichiers HTML avec l'encodage correct
 app.get('/*.html', (req, res) => {
-    res.setHeader('Content-Type', 'text/html; charset=ISO-8859-1');
+    res.setHeader('Content-Type', 'text/html; charset=UTF-8');
     res.sendFile(path.join(__dirname, 'public', req.path));
 });
 
